@@ -1,17 +1,44 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+
+
+class TotalCliques extends React.Component{
+  constructor(props){
+    super(props)
+    this.state = {cliques : 0, lista : []}
+    this.handleClick = this.handleClick.bind(this)
+    
+  }
+
+  handleClick() {
+    this.setState(prevState => ({
+      cliques: prevState.cliques + 1,
+      lista: [...prevState.lista, (new Date().toLocaleTimeString())]
+    }))
+  }
+
+
+  render(){
+    const listItems = this.state.lista.map((li, index) => {
+      return <li key={index}>{li}</li>
+    })
+    return (<div>
+        <button onClick={this.handleClick}>Clique Aqui</button>
+        <h2>Total de Cliques : {this.state.cliques}</h2>
+        {listItems}
+      </div>  )
+  }
+}
+
+
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <div>
+    <h1>Registro de Horário de Cliques</h1>
+    <TotalCliques/>
+  </div>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+
